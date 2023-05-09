@@ -7,12 +7,14 @@ class States(Enum):
     LOST_LIVES = 3
     END_GAME = 4
     WON = 5
+    PAUSE = 6
 
 class Actions(Enum):
     START = 0
     EXIT = 1
     FINISH_LEVEL = 2
     LOST_LIFE = 3
+    CONTINUE = 4
     
 
 class StateMachine:
