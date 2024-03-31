@@ -11,7 +11,7 @@ blue = (0, 0, 128)
 shadow = (128, 128, 128)
 
 
-font = pygame.font.SysFont('Calibri Bold', 50)
+font = pygame.font.SysFont("comicsans", 50)
 
 HEIGHT = 800
 WIDTH = 600
@@ -45,8 +45,10 @@ maze = [
 screen = pygame.display.set_mode((HEIGHT,WIDTH))  
 done = False  
   
+position = pygame.Rect(600, 500, 35, 14)
 
 def draw_level():
+    screen.fill(black)
     for j in range(len(maze)):
         line = maze[j]
         for i in range(len(line)):
@@ -59,10 +61,18 @@ def draw_level():
             elif line[i:i+1] in 'EF':
                 screen.blit(brick_green, ( TILE_WIDTH/2 +TILE_WIDTH* i, TILE_HEIGHT * j))
 
-    screen.blit(paddle, (500, 700))
-    #screen.blit(ball, (200, 600))
+    screen.blit(paddle, (position.x, position.y))
+    screen.blit(ball, (200, 500))
 
     pygame.display.flip()  
+
+
+def handle_paddle_movement(keys_pressed):
+    if keys_pressed[pygame.K_LEFT]:
+        position.x -= 5;
+
+    if keys_pressed[pygame.K_RIGHT]:
+        position.x += 5;
 
 
 def draw_result():
@@ -70,13 +80,15 @@ def draw_result():
     screen.fill(black)
     screen.blit(font.render(title, True, shadow), (202, 102))
     screen.blit(font.render(title, True, blue), (200, 100))
-    pygame.display.update()
+    
 
 def redraw():
     if stateMachine.state == States.INIT:
         draw_level()
     else:
         draw_result()
+    pygame.display.update()
+
 
 clock=pygame.time.Clock()
 
@@ -88,6 +100,10 @@ while not done:
             if event.key == pygame.K_SPACE:
                 print ('pressed space')
                 stateMachine.transit(Actions.START)
+
+    keys_pressed = pygame.key.get_pressed();
+    handle_paddle_movement(keys_pressed);
+
     redraw()
     clock.tick(60)
     
