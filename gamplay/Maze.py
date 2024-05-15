@@ -4,6 +4,7 @@ from enum import Enum
 
 black = (0, 0, 0)
 red = (255, 0, 0)
+green = (0, 255, 0)
 gray = (120, 120, 120) 
 
 TILE_SIZE = 12
@@ -17,6 +18,7 @@ class States(Enum):
     CLOSED = 1
     VISITED = 2
     DEADEND = 3
+    FINISH = 4
 
 class Tile:
     
@@ -28,6 +30,8 @@ class Tile:
     def drawTile(self, screen):
         if(self.state == States.CLOSED):
             pygame.draw.rect(screen, black, pygame.Rect(LEFT + self.x*TILE_SPACING, TOP +  self.y*TILE_SPACING,  TILE_SIZE, TILE_SIZE))
+        if(self.state == States.FINISH):
+            pygame.draw.rect(screen, green, pygame.Rect(LEFT + self.x*TILE_SPACING, TOP +  self.y*TILE_SPACING,  TILE_SIZE, TILE_SIZE))
         if(self.state == States.VISITED):
             pygame.draw.circle(screen, red, (LEFT + self.x*TILE_SPACING + 7,  TOP +  self.y*TILE_SPACING  + 7),  RADIUS)
         if(self.state == States.DEADEND):
@@ -39,7 +43,7 @@ class Maze:
         self.row = row
         self.col =  col
         self.tiles = []
-        self.pos = (11,10)
+        self.pos = (1,1)
         self.path = []
         
     def randomStatus(self):
@@ -61,9 +65,10 @@ class Maze:
                 row.append(t)    
             self.tiles.append(row)
 
-        self.tiles[10][10].state = States.VISITED
 
-        self.tiles[11][10].state = States.DEADEND
+        fin = int(random.random()*self.col)
+
+        self.tiles[self.row -1][fin].state = States.FINISH
 
     def drawMaze (self, screen):
         for i in range(self.row):

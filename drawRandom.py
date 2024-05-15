@@ -16,8 +16,8 @@ screen = pygame.display.set_mode((HEIGHT,WIDTH))
 done = False  
 step = 50
 
-maze = Maze(60, 40)
-
+#maze = Maze(60, 40)
+maze = Maze(20, 10)
 maze.generateRandom();
 
 def getRandomMove(x, y):
@@ -58,7 +58,7 @@ while not done:
             done = True  
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                status = True
+                status = not status
+                maze.move()
     draw()
-    maze.move()
     clock.tick(29) 
