@@ -17,7 +17,7 @@ done = False
 step = 50
 
 sudoku = Sudoku()
-
+sudoku.initiate()
     
 
 def draw():

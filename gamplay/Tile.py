@@ -1,6 +1,7 @@
 class Tile:
     
     def __init__(self, x, y, status):
-        self.x = x
-        self.y =  y
+        self.row = x
+        self.col =  y
         self.status = status
+        self.value = 0
