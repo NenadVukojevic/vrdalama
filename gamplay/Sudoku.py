@@ -62,3 +62,20 @@ class Sudoku:
                 if val > 0:
                     t.status=States.LOCKED
                 self.tiles.append(t)
+
+    def getListOfChoices(self, row, col):
+        byRow = range(1, 10)
+        byCol = range(1, 10)
+        byNon = range(1, 10)
+        rowTiles = [t for t in self.tiles if t.row == row and t.value != 0]
+        colTiles = [t for t in self.tiles if t.col == col and t.value != 0]
+        nonTiles = [t for t in self.tiles if int((t.row-1)/3) == int((row - 1)/3) and int((t.col-1)/3) == int((col - 1)/3) and t.value != 0]
+        print ("rowTiles")
+        for r in rowTiles:
+            r.show();
+        print ("colTiles")
+        for r in colTiles:
+            r.show();
+        print ("nonTiles")
+        for r in nonTiles:
+            r.show();

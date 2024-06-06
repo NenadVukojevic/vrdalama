@@ -19,6 +19,7 @@ step = 50
 sudoku = Sudoku()
 sudoku.initiate()
     
+sudoku.getListOfChoices(4,5)
 
 def draw():
     screen.fill(white)

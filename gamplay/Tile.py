@@ -5,3 +5,6 @@ class Tile:
         self.col =  y
         self.status = status
         self.value = 0
+
+    def show(self):
+        print ("row", self.row, "col", self.col, "valu", self.value )
