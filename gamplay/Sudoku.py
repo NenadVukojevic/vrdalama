@@ -6,6 +6,7 @@ from gamplay.Tile import Tile
 black = (0, 0, 0)
 gray = (200, 200, 200)
 silver = (240, 240, 240)
+pink = (230, 200, 230)
 
 pygame.font.init() # you have to call this at the start, 
                    # if you want to use this module.
@@ -21,6 +22,9 @@ class Sudoku:
 
     def draw(self, screen):
 
+        self.shadeRow(screen, 4)
+        self.shadeCol(screen, 8)
+        self.shadeNon(screen, 5, 5)
         for i in range(10):
             if(i%3 == 0):
                 w = 2
@@ -43,6 +47,21 @@ class Sudoku:
 #        self.drawTile(screen, 6, 1, 9)
         #screen.blit(text_surfaces[7], (36 + 40* 2, 33 + 40* 4))
                
+    def shadeRow(self, screen, row):
+        pygame.draw.line(screen, pink, (20, 40*row), (380, 40*row), 38);
+
+    def shadeCol(self, screen, col):
+        pygame.draw.line(screen, pink, (  40*col, 20), (  40*col, 380), 38);
+
+    def shadeNon(slef, screen, row, col):
+        nRow = int((row-1)/3)
+        nCol = int((col-1)/3)
+        x1 = 20 + 120*nRow
+        x2 = 20 + 120*nCol
+        
+        print(row, col, nRow, nCol, x1, x2)
+        pygame.draw.rect(screen,pink, pygame.Rect(20 + 120*nRow, 20+ 120*nCol, 120 , 120 ));
+        
     def drawTile(self, screen, tile):
         if tile.status == States.LOCKED:
             pygame.draw.circle(screen, gray, (40 + 40* (tile.col-1),42 + 40* (tile.row-1) ), 12)
