@@ -17,9 +17,10 @@ done = False
 step = 50
 
 sudoku = Sudoku()
-sudoku.initiate()
+sudoku.initiate('000800000010009000000002000060000030000070000000000500001000004000000000800000000')
     
-sudoku.getListOfChoices(4,5)
+
+
 
 def draw():
     screen.fill(white)
@@ -35,6 +36,6 @@ while not done:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 status = not status
-
+    sudoku.step()
     draw()
-    clock.tick(29) 
+    clock.tick(2) 
