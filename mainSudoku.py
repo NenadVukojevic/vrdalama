@@ -36,6 +36,7 @@ while not done:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 status = not status
+                
     sudoku.step()
     draw()
-    clock.tick(2) 
+    clock.tick(4) 
