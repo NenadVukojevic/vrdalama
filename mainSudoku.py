@@ -39,4 +39,4 @@ while not done:
                 
     sudoku.step()
     draw()
-    clock.tick(4) 
+    clock.tick(3) 

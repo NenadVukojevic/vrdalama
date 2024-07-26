@@ -30,6 +30,9 @@ class Sudoku:
     def draw(self, screen):
 
         if(self.current != None):
+            if self.stepState in [MovementStates.COMMON_AVAILABLE, MovementStates.BEST_PICK]:
+                self.shadeCommon(screen, self.comm)
+                
             if self.stepState in [MovementStates.COLUMN_AVAILABLE, MovementStates.ROW_AVAILABLE, MovementStates.NONIUS_AVAILABLE, MovementStates.COMMON_AVAILABLE, MovementStates.BEST_PICK]:
                 self.shadeRow(screen, self.current.row)
                 #self.showAvailableRow(screen)
@@ -41,9 +44,8 @@ class Sudoku:
             if self.stepState in [MovementStates.NONIUS_AVAILABLE, MovementStates.COMMON_AVAILABLE, MovementStates.BEST_PICK]:
                 self.shadeNon(screen, self.current.row, self.current.col)
                 #self.showAvailableNon(screen)
-                self.showAvailable(screen, self.rList, 2)
-            if self.stepState in [MovementStates.COMMON_AVAILABLE, MovementStates.BEST_PICK]:
-                self.showAvailable(screen, self.comm, 3)
+                self.showAvailable(screen, self.nList, 2)
+
             
             self.shadeBest(screen, self.current.col, self.current.row)    
         self.drawGrid(screen)
@@ -72,6 +74,9 @@ class Sudoku:
         pygame.draw.line(screen, gray, (  40*col, 20), (  40*col, 380), 38);
 
 
+    def shadeCommon(self, screen, comm):
+        for i in comm:
+            pygame.draw.line(screen, pink, (36 + 40* (9 + i), 20),(36 + 40* (9 + i),  50 * 3), 38)
 
     def shadeNon(self, screen, row, col):
         nRow = int((row-1)/3)
